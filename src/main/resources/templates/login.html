@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Library - login</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
+</head>
+<body onload="document.loginForm.username.focus();">
+    <div class="mainContainer">
+        <div class="center">
+            <h1 class="loginTitle">Welcome to Thomas' Library</h1>
+        </div>
+            <div class="loginContainer">
+                <div th:if="${error}" class="error" th:text="${error}"></div>
+                <div th:if="${msg}" class="msg" th:text="${msg}"></div>
+                <form action="#" th:action="@{/login}" method="post">
+                    <div class="mainFormContainer">
+                        <div class="leftLogin">
+                            <label class="loginLabel">Username</label>
+                            <label class="loginLabel">Password</label>
+                        </div>
+                        <div class="rightLogin">
+                            <input class="loginInput" type="text" name="username" value="" placeholder="Kevin">
+                            <input class="loginInput" type="password" name="password" value="" placeholder="********">
+                        </div>
+                    </div>
+                    <div class="loginBtnContainer">
+                        <button class="loginBtn" name="submit" type="submit">Login</button>
+                    </div>
+                    <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+                </form>
+            </div>
+    </div>
+</body>
+</html>

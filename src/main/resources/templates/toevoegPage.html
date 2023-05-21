@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Library - Voeg toe</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
+</head>
+<body>
+  <div class="nav">
+    <div class="leftNav">
+      <a class="mainTitle" th:href="library">Thomas' Library</a>
+    </div>
+    <div class="rightNav">
+      <div class="navBtnId" th:text="${user}"></div>
+      <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Logout" class="navBtn" >
+      </form>
+    </div>
+  </div>
+  <div class="mainToevoegContainer">
+    <div class="AddFormContainer">
+      <form class="addForm" method="post" th:action="@{/toevoegPage}" th:object="${boek}" >
+        <div class="addGrid">
+          <div class="addColl">
+            <label class="AddLabel">Naam boek</label>
+            <input type="text" class="addInput" placeholder="Kuifje" name="naam" required>
+            <label class="AddLabel">ISBN</label>
+            <input type="text" class="addInput" placeholder="9788408191858" name="IsbnNummer" required>
+            <label class="AddLabel">Prijs</label>
+            <input type="text" class="addInput" placeholder="10,00" name="prijs">
+            <label type="text" class="AddLabel">Image Url</label>
+            <input type="text" class="addInput" placeholder="https://..." name="imgUrl">
+          </div>
+          <div class="addColl">
+            <label class="AddLabel">Auteurs</label>
+            <input type="text" class="addInput" placeholder="Hergé" name="auteurs[0].auteurNaam" required>
+            <input type="text" class="addInput" placeholder="Hergé" name="auteurs[1].auteurNaam" >
+            <input type="text" class="addInput" placeholder="Hergé" name="auteurs[2].auteurNaam" >
+          </div>
+          <div class="addColl">
+            <label class="AddLabel">Locatie</label>
+            <div class="addGrid">
+              <input type="text" class="addInputSmall" placeholder="Code1" name="locaties[0].plaatscode1" required>
+              <input type="text" class="addInputSmall" placeholder="Code2" name="locaties[0].plaatscode2" required>
+              <input type="text" class="addInputSmall" placeholder="Naam" name="locaties[0].plaatsNaam" required>
+            </div>
+            <div class="addGrid">
+              <input type="text" class="addInputSmall" placeholder="Code1" name="locaties[1].plaatscode1" >
+              <input type="text" class="addInputSmall" placeholder="Code2" name="locaties[1].plaatscode2">
+              <input type="text" class="addInputSmall" placeholder="Naam" name="locaties[1].plaatsNaam">
+            </div>
+            <div class="addGrid">
+              <input type="text" class="addInputSmall" placeholder="Code1" name="locaties[2].plaatscode1" >
+              <input type="text" class="addInputSmall" placeholder="Code2" name="locaties[2].plaatscode2">
+              <input type="text" class="addInputSmall" placeholder="Naam" name="locaties[2].plaatsNaam">
+            </div>
+          </div>
+        </div>
+        <div class="addBtnContainer">
+          <input class="addBtn" type="submit" value="Voeg Toe">
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

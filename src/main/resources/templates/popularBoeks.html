@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Library - Populars</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
+  <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
+</head>
+<body>
+  <div class="mainContainer">
+    <div class="nav">
+      <div class="leftNav">
+        <a class="mainTitle" th:href="library">Thomas' Library</a>
+      </div>
+      <div class="rightNav">
+        <div class="navBtnId" th:text="${user}"></div>
+        <form th:action="@{/logout}" method="post">
+          <input type="submit" value="Logout" class="navBtn" >
+        </form>
+      </div>
+    </div>
+    <div class="mainPageBtns">
+      <button class="mainPageBtn" onclick="window.history.back()">Ga terug</button>
+    </div>
+    <div class="bookContainer">
+      <div class="bookDetailContainer" th:each="boek: ${boeken}">
+        <img alt="" class="bookImg" src="" th:alt="${boek.naam}" th:src="${boek.imgUrl}">
+        <div class="bookInfo">
+          <h5 class="bookTitle" th:text="${boek.naam}"></h5>
+          <p class="bookAuthors" th:text="${boek.auteursToString()}"></p>
+          <div class="PM"><a class="toDetails" th:href="@{/library/detailPage/{id}(id=${boek.id})}">Details   &rAarr;</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
