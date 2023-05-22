@@ -46,7 +46,8 @@ public class AddController {
     }
 
     @PostMapping
-    public String add(Boek boek, BindingResult result) {
+    public String add(Boek boek, BindingResult result, Model model, Authentication authentication) {
+        model.addAttribute("user", authentication.getName());
 
         log.info("Posting new Boek with name: {}" , boek.getNaam());
         log.info("Posting new Boek with ISBN: {}", boek.getIsbnNummer());
