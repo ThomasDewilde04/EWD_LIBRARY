@@ -63,7 +63,6 @@ public class Boek implements Serializable{
 	}
 
 	public Object locatiesToString() {
-
 		return locaties.stream().map(locatie ->
 			String.format("%s %s %s", locatie.getPlaatscode1(), locatie.getPlaatscode2(), locatie.getPlaatsNaam()))
 				.collect(Collectors.joining(", "));

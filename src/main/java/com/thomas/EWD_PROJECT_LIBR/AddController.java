@@ -4,6 +4,8 @@ import domein.Auteur;
 import domein.Boek;
 import domein.Locatie;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,8 @@ import java.util.List;
 @RequestMapping("/toevoegPage")
 public class AddController {
 
+    private static final Logger log = LoggerFactory.getLogger(AddController.class);
+
     @Autowired
     private AuteurRepo auteurRepo;
     @Autowired
@@ -40,15 +44,13 @@ public class AddController {
     @PostMapping
     public String add(Boek boek) {
 
-        System.out.println("------------------");
-        System.out.println(boek.getNaam());
-        System.out.println(boek.getIsbnNummer());
-        System.out.println(boek.getPrijs());
-        System.out.println(boek.getImgUrl());
-        System.out.println(boek.auteursToString());
-        System.out.println(boek.locatiesToString());
-        System.out.println("------------------");
-
+        log.info("Posted new Boek with name: " , boek.getNaam());
+        log.info("Posted new Boek with ISBN: ", boek.getIsbnNummer());
+        log.info("Posted new Boek with price: ", boek.getPrijs());
+        log.info("Posted new Boek with ImgUrl: ", boek.getImgUrl());
+        for (Auteur a : boek.getAuteurs()) {
+            log.info("Posted new Boek with author: ", a);
+        }
         //auteurs toevoegen
         List<Auteur> nieuweAuteurs = new ArrayList<>();
         for (Auteur a : boek.getAuteurs()) {
@@ -60,7 +62,6 @@ public class AddController {
             }
         }
         boek.setAuteurs(nieuweAuteurs);
-
         //locatie toevoegen
         List<Locatie> savedLocations = new ArrayList<>();
         for (Locatie loc : boek.getLocaties()) {
@@ -69,8 +70,6 @@ public class AddController {
             }
         }
         boek.setLocaties(savedLocations);
-
-
         //boek toevoegen
         boekRepo.save(boek);
         return "redirect:/library";
