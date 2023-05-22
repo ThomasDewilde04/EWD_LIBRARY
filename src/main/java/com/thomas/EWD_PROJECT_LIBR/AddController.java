@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import repo.AuteurRepo;
 import repo.BoekRepo;
 import repo.LocatieRepo;
+import validator.BoekValidation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,30 +29,39 @@ public class AddController {
 
     private static final Logger log = LoggerFactory.getLogger(AddController.class);
 
+
+    @Autowired
+    private BoekValidation boekValidation;
     @Autowired
     private AuteurRepo auteurRepo;
     @Autowired
     private BoekRepo boekRepo;
-    @Autowired
-    private LocatieRepo locatieRepo;
 
 
     @GetMapping
     public String toevoegPage(Model model, Authentication authentication) {
+        model.addAttribute("boek", new Boek());
         model.addAttribute("user", authentication.getName());
         return "toevoegPage";
     }
 
     @PostMapping
-    public String add(Boek boek) {
+    public String add(Boek boek, BindingResult result) {
 
-        log.info("Posted new Boek with name: " , boek.getNaam());
-        log.info("Posted new Boek with ISBN: ", boek.getIsbnNummer());
-        log.info("Posted new Boek with price: ", boek.getPrijs());
-        log.info("Posted new Boek with ImgUrl: ", boek.getImgUrl());
+        log.info("Posting new Boek with name: {}" , boek.getNaam());
+        log.info("Posting new Boek with ISBN: {}", boek.getIsbnNummer());
+        log.info("Posting new Boek with price: {}", boek.getPrijs());
+        log.info("Posting new Boek with ImgUrl: {}", boek.getImgUrl());
         for (Auteur a : boek.getAuteurs()) {
-            log.info("Posted new Boek with author: ", a);
+            log.info("Posting new Boek with author: {}", a.getAuteurNaam());
         }
+
+        boekValidation.validate(boek, result);
+
+        if (result.hasErrors()) {
+            return "toevoegPage";
+        }
+
         //auteurs toevoegen
         List<Auteur> nieuweAuteurs = new ArrayList<>();
         for (Auteur a : boek.getAuteurs()) {
@@ -72,6 +83,7 @@ public class AddController {
         boek.setLocaties(savedLocations);
         //boek toevoegen
         boekRepo.save(boek);
+        log.info("Boek saved with id: {}", boek.getId());
         return "redirect:/library";
     }
 

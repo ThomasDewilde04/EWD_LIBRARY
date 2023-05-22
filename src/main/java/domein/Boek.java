@@ -34,7 +34,6 @@ public class Boek implements Serializable{
 	
 	@Getter @Setter private String naam;
 
-	@NotBlank
 	@Getter @Setter private String IsbnNummer;
 	@Getter @Setter private double prijs;
 	@Getter @Setter private String imgUrl;

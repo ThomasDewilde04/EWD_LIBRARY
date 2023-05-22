@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import service.CustomUserDetailsService;
+import validator.BoekValidation;
 
 @SpringBootApplication
 @ComponentScans({
@@ -32,6 +33,10 @@ public class EwdProjectLibrApplication implements WebMvcConfigurer {
 		registry.addRedirectViewController("/", "/library");
 	}
 
+	@Bean
+	BoekValidation boekValidation() {
+		return new BoekValidation();
+	}
 	@Bean
 	public UserDetailsService custom() {
 		return new CustomUserDetailsService();

@@ -24,11 +24,14 @@
         <div class="addGrid">
           <div class="addColl">
             <label class="AddLabel">Naam boek</label>
-            <input type="text" class="addInput" placeholder="Kuifje" name="naam" required>
+            <input type="text" class="addInput" placeholder="Kuifje" th:field="*{naam}" required>
+            <span th:if="${#fields.hasErrors('naam')}" th:errorclass="error" th:errors="*{naam}"></span>
             <label class="AddLabel">ISBN</label>
-            <input type="text" class="addInput" placeholder="9788408191858" name="IsbnNummer" required>
+            <input type="text" class="addInput" placeholder="9788408191858"  th:field="*{isbnNummer}" required>
+            <span th:if="${#fields.hasErrors('isbnNummer')}" th:errorclass="error" th:errors="*{isbnNummer}"></span>
             <label class="AddLabel">Prijs</label>
-            <input type="text" class="addInput" placeholder="10,00" name="prijs">
+            <input type="number" step="0.01" class="addInput" placeholder="10,00" th:field="*{prijs}">
+            <span th:if="${#fields.hasErrors('prijs')}" th:errorclass="error" th:errors="*{prijs}"></span>
             <label type="text" class="AddLabel">Image Url</label>
             <input type="text" class="addInput" placeholder="https://..." name="imgUrl">
           </div>
