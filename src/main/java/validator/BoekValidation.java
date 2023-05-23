@@ -32,14 +32,14 @@ public class BoekValidation implements Validator {
             }
 
             // isbn validation
-            String isbn = boek.getIsbnNummer();
+            String isbn = boek.getIsbn();
             if (isbn == null) {
-                errors.rejectValue("isbnNummer",
+                errors.rejectValue("isbn",
                         "lengthOfIsbnNummer.boek.isbnNummer",
                         PropertyLoader.getProperty("EmptyIsbn"));
             }
             if (isbn.length() != 13) {
-                errors.rejectValue("isbnNummer", "lengthOfIsbn.adminPage.isbn",
+                errors.rejectValue("isbn", "lengthOfIsbn.adminPage.isbn",
                         PropertyLoader.getProperty("Isbn13"));
                 return;
             } else {
@@ -50,12 +50,12 @@ public class BoekValidation implements Validator {
                 }
                 int checkDigit = (10 - (sum % 10)) % 10;
                 if (checkDigit != Character.getNumericValue(isbn.charAt(12))) {
-                    errors.rejectValue("isbnNummer", "invalidIsbn.adminPage.isbn", PropertyLoader.getProperty("FaultyIsbn"));
+                    errors.rejectValue("isbn", "invalidIsbn.adminPage.isbn", PropertyLoader.getProperty("FaultyIsbn"));
                 }
             }
             for (Boek b : bookRepository.findAll()) {
-                if (b.getIsbnNummer().equals(isbn))
-                    errors.rejectValue("isbnNummer", "notUniqueISBN.adminPage.isbn", PropertyLoader.getProperty("UniqueIsbn"));
+                if (b.getIsbn().equals(isbn))
+                    errors.rejectValue("isbn", "notUniqueISBN.adminPage.isbn", PropertyLoader.getProperty("UniqueIsbn"));
             }
 
             // prijs validation

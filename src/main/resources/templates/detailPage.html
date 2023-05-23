@@ -26,8 +26,8 @@
             <div class="details">
                 <h1 th:text="${boek.naam}"></h1>
                 <p class="detailText">Auteur(s): <span th:text="${boek.auteursToString()}"></span></p>
-                <p class="detailText">ISBN nummer: <span th:text="${boek.isbnNummer}"></span></p>
-                <p class="detailText">Prijs: <span th:text="${boek.prijsToString()}"></span></p>
+                <p class="detailText">ISBN nummer: <span th:text="${boek.getIsbn}"></span></p>
+                <p class="detailText">Prijs: €<span th:text="${boek.prijsToString()}"></span></p>
                 <p class="detailText">Locatie: <span th:text="${boek.locatiesToString()}"></span></p>
                 <div class="detailText">
                     <p class="detail-title">Rating:

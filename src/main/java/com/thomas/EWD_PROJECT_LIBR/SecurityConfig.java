@@ -40,7 +40,8 @@ public class SecurityConfig {
                         .requestMatchers("/library").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/library/popularBoeks").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/library/{id}/**").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers("/api/books/**").permitAll())
+                        .requestMatchers("/rest/books/isbn/{isbn}").permitAll()
+                        .requestMatchers("/rest/books/auteur/{id}").permitAll())
                 .formLogin(form -> form.defaultSuccessUrl("/library", true).loginPage("/login")).exceptionHandling()
                 .accessDeniedPage("/403");
 

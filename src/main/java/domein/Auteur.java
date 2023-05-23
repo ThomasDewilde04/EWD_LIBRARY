@@ -33,5 +33,6 @@ public class Auteur implements Serializable {
 		this.auteurNaam = naam;
 
 	}
+
 }
 

@@ -2,13 +2,10 @@ package domein;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.validation.constraints.NotBlank;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.NoArgsConstructor;
 
 import jakarta.persistence.CascadeType;
@@ -29,13 +26,20 @@ public class Boek implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
+	@JsonProperty("boek_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter private Integer id;
-	
+
+	@JsonProperty("boek_naam")
 	@Getter @Setter private String naam;
 
-	@Getter @Setter private String IsbnNummer;
+	@JsonProperty("boek_isbn")
+	@Getter @Setter private String isbn;
+
+	@JsonProperty("boek_prijs")
 	@Getter @Setter private double prijs;
+
+	@JsonProperty("boek_img_url")
 	@Getter @Setter private String imgUrl;
 
 	@ManyToMany(mappedBy = "favorieten")

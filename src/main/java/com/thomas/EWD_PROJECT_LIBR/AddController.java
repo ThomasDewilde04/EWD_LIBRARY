@@ -3,7 +3,6 @@ package com.thomas.EWD_PROJECT_LIBR;
 import domein.Auteur;
 import domein.Boek;
 import domein.Locatie;
-import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import repo.AuteurRepo;
 import repo.BoekRepo;
-import repo.LocatieRepo;
 import validator.BoekValidation;
 
 import java.util.ArrayList;
@@ -52,7 +49,7 @@ public class AddController {
         model.addAttribute("pl", new PropertyLoader());
 
         log.info("Posting new Boek with name: {}" , boek.getNaam());
-        log.info("Posting new Boek with ISBN: {}", boek.getIsbnNummer());
+        log.info("Posting new Boek with ISBN: {}", boek.getIsbn());
         log.info("Posting new Boek with price: {}", boek.getPrijs());
         log.info("Posting new Boek with ImgUrl: {}", boek.getImgUrl());
         for (Auteur a : boek.getAuteurs()) {
