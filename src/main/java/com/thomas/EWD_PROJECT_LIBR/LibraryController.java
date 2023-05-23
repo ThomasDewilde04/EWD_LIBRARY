@@ -1,12 +1,9 @@
 package com.thomas.EWD_PROJECT_LIBR;
 
-import domein.Auteur;
+
 import domein.Boek;
-import domein.Locatie;
 import domein.User;
-import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.RequestEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,10 +13,7 @@ import repo.AuteurRepo;
 import repo.BoekRepo;
 import repo.LocatieRepo;
 import repo.UserRepo;
-import service.BoekService;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequestMapping("/library")
@@ -48,6 +42,7 @@ public class LibraryController {
     public String showLibrary(Model model, Authentication authentication) {
         model.addAttribute("boeken", boekRepo.findAll());
         model.addAttribute("user", authentication.getName());
+        model.addAttribute("pl", new PropertyLoader());
         return "library";
     }
 

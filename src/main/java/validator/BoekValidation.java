@@ -1,5 +1,6 @@
 package validator;
 
+import com.thomas.EWD_PROJECT_LIBR.PropertyLoader;
 import domein.Auteur;
 import domein.Boek;
 import domein.Locatie;
@@ -39,7 +40,7 @@ public class BoekValidation implements Validator {
             }
             if (isbn.length() != 13) {
                 errors.rejectValue("isbnNummer", "lengthOfIsbn.adminPage.isbn",
-                        "ISBN moet 13 karakters lang zijn.");
+                        PropertyLoader.getProperty("Isbn13"));
                 return;
             } else {
                 int sum = 0;

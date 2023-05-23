@@ -13,6 +13,9 @@
     </div>
     <div class="rightNav">
       <div class="navBtnId" th:text="${user}"></div>
+      <form th:action="${pl.changeLocale()}">
+        <button type="submit" class="navBtn" th:text="${pl.getLocale().equals('en') ? '&rAarr; NL' : '&rAarr; EN'}"></button>
+      </form>
       <form th:action="@{/logout}" method="post">
         <input type="submit" value="Logout" class="navBtn" >
       </form>

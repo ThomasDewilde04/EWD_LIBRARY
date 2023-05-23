@@ -14,10 +14,10 @@ public class LoginController {
                         @RequestParam(value = "logout", required = false) String logout, Model model) {
 
         if (error != null) {
-            model.addAttribute("error", "Invalid username and password!");
+            model.addAttribute("error", PropertyLoader.getProperty("FoutieveLogin"));
         }
         if (logout != null) {
-            model.addAttribute("msg", "You've been logged out successfully.");
+            model.addAttribute("msg", PropertyLoader.getProperty("SuccesLogout"));
         }
         return "login";
     }

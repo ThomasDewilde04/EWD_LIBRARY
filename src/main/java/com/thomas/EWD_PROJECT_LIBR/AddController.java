@@ -42,12 +42,14 @@ public class AddController {
     public String toevoegPage(Model model, Authentication authentication) {
         model.addAttribute("boek", new Boek());
         model.addAttribute("user", authentication.getName());
+        model.addAttribute("pl", new PropertyLoader());
         return "toevoegPage";
     }
 
     @PostMapping
     public String add(Boek boek, BindingResult result, Model model, Authentication authentication) {
         model.addAttribute("user", authentication.getName());
+        model.addAttribute("pl", new PropertyLoader());
 
         log.info("Posting new Boek with name: {}" , boek.getNaam());
         log.info("Posting new Boek with ISBN: {}", boek.getIsbnNummer());
