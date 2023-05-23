@@ -33,30 +33,32 @@
             <input type="number" step="0.01" class="addInput" placeholder="10,00" th:field="*{prijs}">
             <span th:if="${#fields.hasErrors('prijs')}" th:errorclass="error" th:errors="*{prijs}"></span>
             <label type="text" class="AddLabel">Image Url</label>
-            <input type="text" class="addInput" placeholder="https://..." name="imgUrl">
+            <input type="text" class="addInput" placeholder="https://..." th:field="*{imgUrl}">
           </div>
           <div class="addColl">
             <label class="AddLabel">Auteurs</label>
-            <input type="text" class="addInput" placeholder="Hergé" name="auteurs[0].auteurNaam" required>
+            <input type="text" class="addInput" placeholder="Hergé" th:field="*{auteurs[0].auteurNaam}">
+            <span th:if="${#fields.hasErrors('auteurs[0].auteurNaam')}" th:errorclass="error" th:errors="*{auteurs[0].auteurNaam}"></span>
             <input type="text" class="addInput" placeholder="Hergé" name="auteurs[1].auteurNaam" >
             <input type="text" class="addInput" placeholder="Hergé" name="auteurs[2].auteurNaam" >
           </div>
           <div class="addColl">
-            <label class="AddLabel">Locatie</label>
+            <label class="AddLabel">Locaties</label>
+            <span th:if="${#fields.hasErrors('locaties[0].plaatscode1')}" th:errorclass="error" th:errors="*{locaties[0].plaatscode1}"></span>
             <div class="addGrid">
-              <input type="text" class="addInputSmall" placeholder="Code1" name="locaties[0].plaatscode1" required>
-              <input type="text" class="addInputSmall" placeholder="Code2" name="locaties[0].plaatscode2" required>
-              <input type="text" class="addInputSmall" placeholder="Naam" name="locaties[0].plaatsNaam" required>
+              <input type="number" class="addInputSmall" placeholder="Code1" th:field="*{locaties[0].plaatscode1}" >
+              <input type="number" class="addInputSmall" placeholder="Code2" th:field="*{locaties[0].plaatscode2}" >
+              <input type="text" class="addInputSmall" placeholder="Naam" th:field="*{locaties[0].plaatsNaam}" >
             </div>
             <div class="addGrid">
-              <input type="text" class="addInputSmall" placeholder="Code1" name="locaties[1].plaatscode1" >
-              <input type="text" class="addInputSmall" placeholder="Code2" name="locaties[1].plaatscode2">
-              <input type="text" class="addInputSmall" placeholder="Naam" name="locaties[1].plaatsNaam">
+              <input type="number" class="addInputSmall" placeholder="Code1" th:field="*{locaties[1].plaatscode1}" >
+              <input type="number" class="addInputSmall" placeholder="Code2" th:field="*{locaties[1].plaatscode2}">
+              <input type="text" class="addInputSmall" placeholder="Naam" th:field="*{locaties[1].plaatsNaam}">
             </div>
             <div class="addGrid">
-              <input type="text" class="addInputSmall" placeholder="Code1" name="locaties[2].plaatscode1" >
-              <input type="text" class="addInputSmall" placeholder="Code2" name="locaties[2].plaatscode2">
-              <input type="text" class="addInputSmall" placeholder="Naam" name="locaties[2].plaatsNaam">
+              <input type="number" class="addInputSmall" placeholder="Code1" th:field="*{locaties[2].plaatscode1}" >
+              <input type="number" class="addInputSmall" placeholder="Code2" th:field="*{locaties[2].plaatscode2}">
+              <input type="text" class="addInputSmall" placeholder="Naam" th:field="*{locaties[2].plaatsNaam}">
             </div>
           </div>
         </div>

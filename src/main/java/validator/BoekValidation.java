@@ -1,10 +1,14 @@
 package validator;
 
+import domein.Auteur;
 import domein.Boek;
+import domein.Locatie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Validator;
 import org.springframework.validation.Errors;
 import repo.BoekRepo;
+
+import java.util.List;
 
 public class BoekValidation implements Validator {
 
@@ -33,7 +37,6 @@ public class BoekValidation implements Validator {
                         "lengthOfIsbnNummer.boek.isbnNummer",
                         "ISBN mag niet leeg zijn.");
             }
-
             if (isbn.length() != 13) {
                 errors.rejectValue("isbnNummer", "lengthOfIsbn.adminPage.isbn",
                         "ISBN moet 13 karakters lang zijn.");
@@ -49,12 +52,10 @@ public class BoekValidation implements Validator {
                     errors.rejectValue("isbnNummer", "invalidIsbn.adminPage.isbn", "Ongeldig ISBN!");
                 }
             }
-
             for (Boek b : bookRepository.findAll()) {
                 if (b.getIsbnNummer().equals(isbn))
                     errors.rejectValue("isbnNummer", "notUniqueISBN.adminPage.isbn", "ISBN moet uniek zijn!");
             }
-
 
             // prijs validation
             Double prijs = boek.getPrijs();
@@ -63,6 +64,47 @@ public class BoekValidation implements Validator {
                     errors.rejectValue("prijs",
                             "lengthOfPrijs.boek.prijs",
                             "Prijs moet tussen 0 en 100 zijn.");
+                }
+            }
+
+            //auteur validation
+            List<Auteur> auteurs = boek.getAuteurs();
+            Auteur auteur = auteurs.get(0);
+            if (auteur == null || auteur.getAuteurNaam().isEmpty()) {
+                errors.rejectValue("auteurs[0].auteurNaam",
+                        "lengthOfAuteurs.boek.auteurs",
+                        "Boek moet minstens 1 auteur hebben.");
+            }
+
+            //locatie validation
+            List<Locatie> locaties = boek.getLocaties();
+            Locatie locatie1 = locaties.get(0);
+            if (locatie1 == null || locatie1.getPlaatscode1().isEmpty() ||
+                    locatie1.getPlaatscode2().isEmpty() || locatie1.getPlaatsNaam().isEmpty()) {
+                errors.rejectValue("locaties[0].plaatscode1",
+                        "lengthOfLocaties.boek.locaties",
+                        "Boek moet minstens 1 locatie hebben.");
+            }
+            for (Locatie loc : boek.getLocaties()) {
+                if (loc != null && !loc.getPlaatscode1().isBlank() &&
+                        !loc.getPlaatscode2().isBlank() && !loc.getPlaatsNaam().isBlank()) {
+                    int locCode1 = Integer.parseInt(loc.getPlaatscode1());
+                    int locCode2 = Integer.parseInt(loc.getPlaatscode2());
+                    if (locCode1 < 50 || locCode1 > 300 || locCode2 < 50 || locCode2 > 300) {
+                        errors.rejectValue("locaties[0].plaatscode1",
+                                "invalidLocatie.boek.locaties",
+                                "Plaatscodes moeten tussen 50 en 300 liggen.");
+                    }
+                    if (locCode1 - locCode2 < 50) {
+                        errors.rejectValue("locaties[0].plaatscode1",
+                                "invalidLocatie.boek.locaties",
+                                "Verschil plaatscode1 & plaatscode2 moet min. 50 zijn.");
+                    }
+                    if (!loc.getPlaatsNaam().matches("[a-zA-Z]+")) {
+                        errors.rejectValue("locaties[0].plaatscode1",
+                                "invalidPlaatsNaam.boek.locaties",
+                                "Plaatsnaam mag enkel letters bevatten.");
+                    }
                 }
             }
 

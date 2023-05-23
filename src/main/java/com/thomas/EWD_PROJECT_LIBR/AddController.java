@@ -56,6 +56,11 @@ public class AddController {
         for (Auteur a : boek.getAuteurs()) {
             log.info("Posting new Boek with author: {}", a.getAuteurNaam());
         }
+        for (Locatie l : boek.getLocaties()) {
+            log.info("Posting new Boek with code1: {}", l.getPlaatscode1());
+            log.info("Posting new Boek with code2: {}", l.getPlaatscode2());
+            log.info("Posting new Boek with plaats: {}", l.getPlaatsNaam());
+        }
 
         boekValidation.validate(boek, result);
 
