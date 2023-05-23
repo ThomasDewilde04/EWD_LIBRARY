@@ -23,11 +23,6 @@ public class LibraryController {
     private BoekRepo boekRepo;
     @Autowired
     private UserRepo userRepo;
-    @Autowired
-    private AuteurRepo auteurRepo;
-    @Autowired
-    private LocatieRepo locatieRepo;
-
 
     @GetMapping("/detailPage/{id}")
     public String boek(@PathVariable Integer id, Model model, Authentication authentication) {

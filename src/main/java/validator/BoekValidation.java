@@ -28,7 +28,7 @@ public class BoekValidation implements Validator {
             if (titel.isBlank() || titel.length() == 0 || titel.isEmpty()) {
                 errors.rejectValue("naam",
                         "lengthOfNaam.boek.naam",
-                        "Titel mag niet leeg zijn.");
+                        PropertyLoader.getProperty("EmptyNaam"));
             }
 
             // isbn validation
@@ -36,7 +36,7 @@ public class BoekValidation implements Validator {
             if (isbn == null) {
                 errors.rejectValue("isbnNummer",
                         "lengthOfIsbnNummer.boek.isbnNummer",
-                        "ISBN mag niet leeg zijn.");
+                        PropertyLoader.getProperty("EmptyIsbn"));
             }
             if (isbn.length() != 13) {
                 errors.rejectValue("isbnNummer", "lengthOfIsbn.adminPage.isbn",
@@ -50,12 +50,12 @@ public class BoekValidation implements Validator {
                 }
                 int checkDigit = (10 - (sum % 10)) % 10;
                 if (checkDigit != Character.getNumericValue(isbn.charAt(12))) {
-                    errors.rejectValue("isbnNummer", "invalidIsbn.adminPage.isbn", "Ongeldig ISBN!");
+                    errors.rejectValue("isbnNummer", "invalidIsbn.adminPage.isbn", PropertyLoader.getProperty("FaultyIsbn"));
                 }
             }
             for (Boek b : bookRepository.findAll()) {
                 if (b.getIsbnNummer().equals(isbn))
-                    errors.rejectValue("isbnNummer", "notUniqueISBN.adminPage.isbn", "ISBN moet uniek zijn!");
+                    errors.rejectValue("isbnNummer", "notUniqueISBN.adminPage.isbn", PropertyLoader.getProperty("UniqueIsbn"));
             }
 
             // prijs validation
@@ -64,7 +64,7 @@ public class BoekValidation implements Validator {
                 if (prijs <= 0 || prijs > 100) {
                     errors.rejectValue("prijs",
                             "lengthOfPrijs.boek.prijs",
-                            "Prijs moet tussen 0 en 100 zijn.");
+                            PropertyLoader.getProperty("InvalidPrice"));
                 }
             }
 
@@ -74,7 +74,7 @@ public class BoekValidation implements Validator {
             if (auteur == null || auteur.getAuteurNaam().isEmpty()) {
                 errors.rejectValue("auteurs[0].auteurNaam",
                         "lengthOfAuteurs.boek.auteurs",
-                        "Boek moet minstens 1 auteur hebben.");
+                        PropertyLoader.getProperty("NoAuthor"));
             }
 
             //locatie validation
@@ -84,7 +84,7 @@ public class BoekValidation implements Validator {
                     locatie1.getPlaatscode2().isEmpty() || locatie1.getPlaatsNaam().isEmpty()) {
                 errors.rejectValue("locaties[0].plaatscode1",
                         "lengthOfLocaties.boek.locaties",
-                        "Boek moet minstens 1 locatie hebben.");
+                        PropertyLoader.getProperty("NoLocation"));
             }
             for (Locatie loc : boek.getLocaties()) {
                 if (loc != null && !loc.getPlaatscode1().isBlank() &&
@@ -94,17 +94,17 @@ public class BoekValidation implements Validator {
                     if (locCode1 < 50 || locCode1 > 300 || locCode2 < 50 || locCode2 > 300) {
                         errors.rejectValue("locaties[0].plaatscode1",
                                 "invalidLocatie.boek.locaties",
-                                "Plaatscodes moeten tussen 50 en 300 liggen.");
+                                PropertyLoader.getProperty("PlacecodeOFB"));
                     }
                     if (locCode1 - locCode2 < 50) {
                         errors.rejectValue("locaties[0].plaatscode1",
                                 "invalidLocatie.boek.locaties",
-                                "Verschil plaatscode1 & plaatscode2 moet min. 50 zijn.");
+                                PropertyLoader.getProperty("PlacecodeDiff"));
                     }
                     if (!loc.getPlaatsNaam().matches("[a-zA-Z]+")) {
                         errors.rejectValue("locaties[0].plaatscode1",
                                 "invalidPlaatsNaam.boek.locaties",
-                                "Plaatsnaam mag enkel letters bevatten.");
+                                PropertyLoader.getProperty("PlacenameOL"));
                     }
                 }
             }
