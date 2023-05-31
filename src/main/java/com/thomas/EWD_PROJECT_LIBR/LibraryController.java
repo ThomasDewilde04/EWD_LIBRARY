@@ -50,16 +50,17 @@ public class LibraryController {
         if (boek == null) {
             return "error";
         }
+        String boekTitel = boek.getNaam();
         if (user.getFavorieten().contains(boek)) {
             user.removeFavoriteBook(boek);
-            redirectAttributes.addFlashAttribute("confirmation", "removed");
+            redirectAttributes.addFlashAttribute("confirmation",  boekTitel + " is verwijderd uit favorieten");
         }else {
             try {
                 user.addFavoriteBook(boek);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-            redirectAttributes.addFlashAttribute("confirmation", "added");
+            redirectAttributes.addFlashAttribute("confirmation", boekTitel + " is toegevoegd aan favorieten");
         }
         userRepo.save(user);
         return "redirect:/library";

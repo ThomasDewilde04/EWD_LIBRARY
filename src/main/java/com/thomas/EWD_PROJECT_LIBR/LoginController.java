@@ -19,6 +19,13 @@ public class LoginController {
         if (logout != null) {
             model.addAttribute("msg", PropertyLoader.getProperty("SuccesLogout"));
         }
+
+        model.addAttribute("pl", new PropertyLoader());
+        model.addAttribute("ign" , PropertyLoader.getProperty("ign"));
+        model.addAttribute("pw" , PropertyLoader.getProperty("pw"));
+        model.addAttribute("mainHeader" , PropertyLoader.getProperty("mainHeader"));
+        model.addAttribute("Title" , PropertyLoader.getProperty("Title"));
+
         return "login";
     }
 }

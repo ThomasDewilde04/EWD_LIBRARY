@@ -28,7 +28,9 @@
         <th:block th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
             <a class="mainPageBtn" th:href="@{/toevoegPage}">Voeg boek toe</a>
         </th:block>
-
+    </div>
+    <div class="center">
+        <div th:if="${confirmation}" class="msg" th:text="${confirmation}"></div>
     </div>
     <div class="bookContainer">
         <div class="bookDetailContainer" th:each="boek: ${boeken}">

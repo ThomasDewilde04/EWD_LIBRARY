@@ -2,14 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Library - login</title>
+    <title th:text="${Title}"></title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
     <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
 </head>
 <body onload="document.loginForm.username.focus();">
     <div class="mainContainer">
         <div class="center">
-            <h1 class="loginTitle">Welcome to Thomas' Library</h1>
+            <h1 class="loginTitle" th:text="${mainHeader}"></h1>
+        </div>
+        <div class="center">
+            <form th:action="${pl.changeLocale()}">
+                <button type="submit" class="navBtn" th:text="${pl.getLocale().equals('en') ? '&rAarr; NL' : '&rAarr; EN'}"></button>
+            </form>
         </div>
             <div class="loginContainer">
                 <div th:if="${error}" class="error" th:text="${error}"></div>
@@ -17,8 +22,8 @@
                 <form action="#" th:action="@{/login}" method="post">
                     <div class="mainFormContainer">
                         <div class="leftLogin">
-                            <label class="loginLabel">Username</label>
-                            <label class="loginLabel">Password</label>
+                            <label class="loginLabel" th:text="${ign}"></label>
+                            <label class="loginLabel" th:text="${pw}"></label>
                         </div>
                         <div class="rightLogin">
                             <input class="loginInput" type="text" name="username" value="" placeholder="Kevin">
