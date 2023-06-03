@@ -27,7 +27,7 @@
         <div class="addGrid">
           <div class="addColl">
             <label class="AddLabel">Naam boek</label>
-            <input type="text" class="addInput" placeholder="Kuifje" th:field="*{naam}" required>
+            <input type="text" class="addInput" placeholder="Kuifje" th:field="*{naam}" required th:text="${boek.naam}">
             <span th:if="${#fields.hasErrors('naam')}" th:errorclass="error" th:errors="*{naam}"></span>
             <label class="AddLabel">ISBN</label>
             <input type="text" class="addInput" placeholder="9788408191858" th:field="*{isbn}" required>

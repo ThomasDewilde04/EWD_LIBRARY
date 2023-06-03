@@ -14,7 +14,7 @@
         <div class="rightNav">
             <div class="navBtnId" th:text="${user.username}"></div>
             <form th:action="@{/logout}" method="post">
-                <input type="submit" value="Logout" class="navBtn" ></input>
+                <input type="submit" value="Logout" class="navBtn" >
             </form>
         </div>
     </div>
@@ -47,6 +47,9 @@
                     <input type="hidden" name="boekId" th:value="${boek.id}" />
                     <button type="submit" class="AddFavo" th:text="${user.isBookFavorited(boek) ? 'Verwijderen uit favorieten' : 'Voeg toe aan favorieten'}"></button>
                 </form>
+                <th:block th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                    <a class="AddFavo" th:href="@{/updatePage/{id}(id=${boek.id})}">Edit</a>
+                </th:block>
                 <button class="GoBackBtn" onclick="window.history.back()">Ga terug</button>
             </div>
         </div>

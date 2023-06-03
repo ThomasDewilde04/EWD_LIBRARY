@@ -79,4 +79,9 @@ public class Boek implements Serializable{
 		return favoritedByUsers != null ? favoritedByUsers.size() : 0;
 	}
 
+	public void removesNulls() {
+		auteurs.remove(auteurs.size() - 1);
+		locaties.remove(locaties.size() - 1);
+	}
+
 }

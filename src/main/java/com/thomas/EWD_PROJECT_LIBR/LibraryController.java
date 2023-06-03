@@ -1,28 +1,43 @@
 package com.thomas.EWD_PROJECT_LIBR;
 
 
+import domein.Auteur;
 import domein.Boek;
+import domein.Locatie;
 import domein.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import repo.AuteurRepo;
 import repo.BoekRepo;
 import repo.LocatieRepo;
 import repo.UserRepo;
+import validator.BoekValidation;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
 @RequestMapping("/library")
 public class LibraryController {
 
+    private static final Logger log = LoggerFactory.getLogger(AddController.class);
+
     @Autowired
     private BoekRepo boekRepo;
     @Autowired
     private UserRepo userRepo;
+    @Autowired
+    private BoekValidation boekValidation;
+    @Autowired
+    private AuteurRepo auteurRepo;
 
     @GetMapping("/detailPage/{id}")
     public String boek(@PathVariable Integer id, Model model, Authentication authentication) {

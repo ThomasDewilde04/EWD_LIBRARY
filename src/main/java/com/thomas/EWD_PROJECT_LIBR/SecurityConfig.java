@@ -37,6 +37,7 @@ public class SecurityConfig {
                         .requestMatchers("/css/**").permitAll()
                         .requestMatchers("/403").permitAll()
                         .requestMatchers("/toevoegPage").hasRole("ADMIN")
+                        .requestMatchers("/updatePage/**").hasRole("ADMIN")
                         .requestMatchers("/library").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/library/popularBoeks").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/library/{id}/**").hasAnyRole("USER", "ADMIN")

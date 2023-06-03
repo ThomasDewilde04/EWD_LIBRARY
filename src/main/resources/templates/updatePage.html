@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Library - Update</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
+</head>
+<body>
+<div class="nav">
+    <div class="leftNav">
+        <a class="mainTitle" th:href="@{/library}">Thomas' Library</a>
+    </div>
+    <div class="rightNav">
+        <div class="navBtnId" th:text="${user}"></div>
+        <form th:action="${pl.changeLocale()}">
+            <button type="submit" class="navBtn" th:text="${pl.getLocale().equals('en') ? '&rAarr; NL' : '&rAarr; EN'}"></button>
+        </form>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Logout" class="navBtn" >
+        </form>
+    </div>
+</div>
+<div class="mainToevoegContainer">
+    <div class="AddFormContainer">
+        <form class="addForm" method="post" th:action="@{/updatePage/update/{id}(id=${boek.id})}" th:object="${boek}" >
+            <div class="addGrid">
+                <div class="addColl">
+                    <label class="AddLabel">Naam boek</label>
+                    <input type="text" class="addInput" th:field="*{naam}" required>
+                    <span th:if="${#fields.hasErrors('naam')}" th:errorclass="error" th:errors="*{naam}"></span>
+                    <label class="AddLabel">ISBN</label>
+                    <input type="text" class="addInput" th:field="*{isbn}" required>
+                    <span th:if="${#fields.hasErrors('isbn')}" th:errorclass="error" th:errors="*{isbn}"></span>
+                    <label class="AddLabel">Prijs</label>
+                    <input type="number" step="0.01" class="addInput" th:field="*{prijs}">
+                    <span th:if="${#fields.hasErrors('prijs')}" th:errorclass="error" th:errors="*{prijs}"></span>
+                    <label type="text" class="AddLabel">Image Url</label>
+                    <input type="text" class="addInput" th:field="*{imgUrl}">
+                </div>
+                <div class="addColl">
+                    <label class="AddLabel">Auteurs</label>
+                    <input type="text" class="addInput" th:field="*{auteurs[0].auteurNaam}">
+                    <span th:if="${#fields.hasErrors('auteurs[0].auteurNaam')}" th:errorclass="error" th:errors="*{auteurs[0].auteurNaam}"></span>
+                    <input type="text" class="addInput" name="auteurs[1].auteurNaam" >
+                    <input type="text" class="addInput" name="auteurs[2].auteurNaam" >
+                </div>
+                <div class="addColl">
+                    <label class="AddLabel">Locaties</label>
+                    <span th:if="${#fields.hasErrors('locaties[0].plaatscode1')}" th:errorclass="error" th:errors="*{locaties[0].plaatscode1}"></span>
+                    <div class="addGrid">
+                        <input type="number" class="addInputSmall" th:field="*{locaties[0].plaatscode1}" >
+                        <input type="number" class="addInputSmall" th:field="*{locaties[0].plaatscode2}" >
+                        <input type="text" class="addInputSmall" th:field="*{locaties[0].plaatsNaam}" >
+                    </div>
+                    <div class="addGrid">
+                        <input type="number" class="addInputSmall" th:field="*{locaties[1].plaatscode1}" >
+                        <input type="number" class="addInputSmall" th:field="*{locaties[1].plaatscode2}">
+                        <input type="text" class="addInputSmall" th:field="*{locaties[1].plaatsNaam}">
+                    </div>
+                    <div class="addGrid">
+                        <input type="number" class="addInputSmall" th:field="*{locaties[2].plaatscode1}" >
+                        <input type="number" class="addInputSmall" th:field="*{locaties[2].plaatscode2}">
+                        <input type="text" class="addInputSmall" th:field="*{locaties[2].plaatsNaam}">
+                    </div>
+                </div>
+            </div>
+            <div class="addBtnContainer">
+                <input class="addBtn" type="submit" value="Update">
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

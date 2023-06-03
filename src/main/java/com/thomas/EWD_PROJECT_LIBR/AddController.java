@@ -48,6 +48,8 @@ public class AddController {
         model.addAttribute("user", authentication.getName());
         model.addAttribute("pl", new PropertyLoader());
 
+
+
         log.info("Posting new Boek with name: {}" , boek.getNaam());
         log.info("Posting new Boek with ISBN: {}", boek.getIsbn());
         log.info("Posting new Boek with price: {}", boek.getPrijs());
